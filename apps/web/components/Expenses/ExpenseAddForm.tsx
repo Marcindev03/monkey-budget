@@ -41,9 +41,9 @@ const ExpenseAddForm: FC<ExpenseAddFormProps> = ({ onFormSubmit }) => {
   const categories = useSelector(selectAllCategories);
 
   const handleFormSubmit = () => {
-    const categoryId = categoryRef.current.value;
-    const amout = +amoutRef.current.value;
-    const description = descriptionRef.current.value;
+    const categoryId = categoryRef?.current?.value ?? "";
+    const amout = parseFloat(amoutRef?.current?.value ?? "0");
+    const description = descriptionRef?.current?.value;
 
     const expense: Expense = {
       id: nanoid(),

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addIncome } from "../../features/incomes/incomesSlice";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { CustomFormControl } from "../common";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 
 type IncomesAddFormProps = {
   onFormSubmit?: () => void;
@@ -26,7 +26,9 @@ const IncomesAddForm: FC<IncomesAddFormProps> = ({ onFormSubmit }) => {
 
   const dispatch = useDispatch();
 
-  const handleFormSubmit = ({ amout, description }: IncomesAddFormFormData) => {
+  const handleFormSubmit = (data: FieldValues) => {
+    const { amout, description } = data as IncomesAddFormFormData;
+
     dispatch(addIncome(amout, description, date));
     onFormSubmit?.();
   };

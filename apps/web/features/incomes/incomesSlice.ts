@@ -4,7 +4,7 @@ import { Income } from "../../types/income";
 import { AppState } from "../../app/store";
 import { INCOMES } from "../../mocks/data";
 
-interface IncomesState {
+export interface IncomesState {
   incomes: Income[];
 }
 

@@ -3,7 +3,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 import { categoryAdded } from "../../features/categories/categoriesSlice";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { CustomFormControl } from "../common";
 
 type CategoriesAddFormProps = {
@@ -28,7 +28,9 @@ export const CategoriesAddForm: FC<CategoriesAddFormProps> = ({
 
   const dispatch = useDispatch();
 
-  const handleFormSubmit = ({ name }: CategoriesAddFormFormData) => {
+  const handleFormSubmit = (data: FieldValues) => {
+    const { name } = data as CategoriesAddFormFormData;
+
     dispatch(categoryAdded({ id: nanoid(), name, color: "white" }));
 
     onFormSubmit?.();
