@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import CategoriesList from "../components/Categories/CategoriesList";
 import { CategoriesAddModal } from "../components/Categories";
+import { NextSeo } from "next-seo";
 
 const CategoriesPage: NextPage = () => {
   const modalControls = {
@@ -19,6 +20,7 @@ const CategoriesPage: NextPage = () => {
 
   return (
     <>
+      <NextSeo title="Your Categories" />
       <Heading>Monkey Budget - Categories</Heading>
 
       <SimpleGrid columns={2}>

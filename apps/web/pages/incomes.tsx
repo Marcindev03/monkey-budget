@@ -8,6 +8,7 @@ import {
   Button,
   HStack,
 } from "@chakra-ui/react";
+import { NextSeo } from "next-seo";
 import { IncomesList } from "../components/IncomesList";
 import { IncomesModal } from "../components/Incomes";
 
@@ -19,6 +20,8 @@ const IncomesPage: NextPage = () => {
 
   return (
     <>
+      <NextSeo title="Your Incomes" />
+
       <Heading>Monkey Budget - Incomes</Heading>
 
       <SimpleGrid columns={2}>

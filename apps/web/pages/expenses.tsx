@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { ExpensesList } from "../components/Expenses";
 import ExpensesAddModal from "../components/Expenses/ExpenseAddModal";
+import { NextSeo } from "next-seo";
 
 const ExpensesPage: NextPage = () => {
   const modalControls = {
@@ -18,6 +19,7 @@ const ExpensesPage: NextPage = () => {
 
   return (
     <>
+      <NextSeo title="Your Expenses" />
       <Heading>Monkey Budget - Expenses</Heading>
 
       <SimpleGrid columns={2}>
