@@ -5,12 +5,11 @@ import {
   SimpleGrid,
   Link,
   useDisclosure,
-  Flex,
   Button,
   HStack,
 } from "@chakra-ui/react";
-import IncomesList from "../components/IncomesList/IncomesList";
-import IncomesAddModal from "../components/IncomesModal/IncomesAddModal";
+import { IncomesList } from "../components/IncomesList";
+import { IncomesModal } from "../components/Incomes";
 
 const IncomesPage: NextPage = () => {
   const modalControls = {
@@ -35,9 +34,19 @@ const IncomesPage: NextPage = () => {
         </Button>
       </HStack>
 
-      <IncomesList />
+      <IncomesList openEditModal={modalControls.edit.onOpen} />
 
-      <IncomesAddModal {...modalControls.add} />
+      <IncomesModal
+        modalTitle={"Add Income"}
+        type={"add"}
+        {...modalControls.add}
+      />
+
+      <IncomesModal
+        modalTitle={"Edit Income"}
+        type={"edit"}
+        {...modalControls.edit}
+      />
     </>
   );
 };

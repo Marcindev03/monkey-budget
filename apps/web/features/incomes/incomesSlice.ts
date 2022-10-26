@@ -5,7 +5,9 @@ import { AppState } from "../../app/store";
 import { INCOMES } from "../../mocks/data";
 
 const incomesAdapter = createEntityAdapter<Income>();
-const emptyInitialState = incomesAdapter.getInitialState();
+const emptyInitialState = incomesAdapter.getInitialState({
+  editIncomeId: "",
+});
 const filledState = incomesAdapter.upsertMany(emptyInitialState, INCOMES);
 
 const incomesSlice = createSlice({
@@ -27,6 +29,10 @@ const incomesSlice = createSlice({
         };
       },
     },
+    setEditIncomeId(state, action: PayloadAction<string>) {
+      state.editIncomeId = action.payload;
+    },
+    updateIncome: incomesAdapter.updateOne,
     deleteIncome: incomesAdapter.removeOne,
   },
 });
@@ -34,6 +40,7 @@ const incomesSlice = createSlice({
 export const { selectAll: selectAllIncomes } =
   incomesAdapter.getSelectors<AppState>((state) => state.incomes);
 
-export const { addIncome, deleteIncome } = incomesSlice.actions;
+export const { addIncome, deleteIncome, updateIncome, setEditIncomeId } =
+  incomesSlice.actions;
 
 export default incomesSlice.reducer;

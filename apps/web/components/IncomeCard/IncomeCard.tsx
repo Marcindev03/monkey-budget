@@ -1,23 +1,32 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { FC } from "react";
 import { format, parseISO } from "date-fns";
 import { Income } from "../../types/income";
 import { useDispatch } from "react-redux";
-import { deleteIncome } from "../../features/incomes/incomesSlice";
+import {
+  deleteIncome,
+  setEditIncomeId,
+} from "../../features/incomes/incomesSlice";
 
 type IncomeCardProps = {
   income: Income;
+  openEditModal: () => void;
 };
 
-const IncomeCard: FC<IncomeCardProps> = ({ income }) => {
+const IncomeCard: FC<IncomeCardProps> = ({ income, openEditModal }) => {
   const dispatch = useDispatch();
 
   const handleIncomeDelete = () => dispatch(deleteIncome(income.id));
 
+  const handleIncomeEdit = () => {
+    dispatch(setEditIncomeId(income.id));
+    openEditModal();
+  };
+
   return (
     <SimpleGrid
-      columns={4}
+      columns={5}
       w="2xl"
       shadow="md"
       rounded={"full"}
@@ -29,6 +38,7 @@ const IncomeCard: FC<IncomeCardProps> = ({ income }) => {
       <Text>{income.description}</Text>
       <Text>{format(parseISO(income.date), "dd.M.yyyy")}</Text>
       <DeleteIcon cursor="pointer" onClick={handleIncomeDelete} />
+      <EditIcon cursor="pointer" onClick={handleIncomeEdit} />
     </SimpleGrid>
   );
 };

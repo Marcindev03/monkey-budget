@@ -4,7 +4,11 @@ import { useSelector } from "react-redux";
 import { selectAllIncomes } from "../../features/incomes/incomesSlice";
 import IncomeCard from "../IncomeCard/IncomeCard";
 
-const IncomesList: FC = () => {
+type IncomesListProps = {
+  openEditModal: () => void;
+};
+
+export const IncomesList: FC<IncomesListProps> = ({ openEditModal }) => {
   const incomes = useSelector(selectAllIncomes);
 
   return (
@@ -15,7 +19,11 @@ const IncomesList: FC = () => {
         <Text>Date</Text>
       </SimpleGrid>
       {incomes.map((income) => (
-        <IncomeCard key={income.id} income={income} />
+        <IncomeCard
+          key={income.id}
+          income={income}
+          openEditModal={openEditModal}
+        />
       ))}
     </VStack>
   );
