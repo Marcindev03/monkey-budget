@@ -1,24 +1,20 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice, nanoid } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Income } from "../../types/income";
 import { AppState } from "../../app/store";
 import { INCOMES } from "../../mocks/data";
 
-export interface IncomesState {
-  incomes: Income[];
-}
-
-const initialState: IncomesState = {
-  incomes: INCOMES,
-};
+const incomesAdapter = createEntityAdapter<Income>();
+const emptyInitialState = incomesAdapter.getInitialState();
+const filledState = incomesAdapter.upsertMany(emptyInitialState, INCOMES);
 
 const incomesSlice = createSlice({
   name: "incomes",
-  initialState,
+  initialState: filledState,
   reducers: {
     addIncome: {
       reducer(state, action: PayloadAction<Income>) {
-        state.incomes.push(action.payload);
+        incomesAdapter.addOne(state, action.payload);
       },
       prepare(value: number, description: string, date: Date) {
         return {
@@ -31,11 +27,13 @@ const incomesSlice = createSlice({
         };
       },
     },
+    deleteIncome: incomesAdapter.removeOne,
   },
 });
 
-export const selectAllIncomes = (state: AppState) => state.incomes.incomes;
+export const { selectAll: selectAllIncomes } =
+  incomesAdapter.getSelectors<AppState>((state) => state.incomes);
 
-export const { addIncome } = incomesSlice.actions;
+export const { addIncome, deleteIncome } = incomesSlice.actions;
 
 export default incomesSlice.reducer;
