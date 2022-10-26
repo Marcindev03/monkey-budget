@@ -13,10 +13,12 @@ export const IncomesList: FC<IncomesListProps> = ({ openEditModal }) => {
 
   return (
     <VStack mt="4" display="block">
-      <SimpleGrid columns={3} w="xl">
+      <SimpleGrid columns={5} w="xl">
         <Text>Amout</Text>
         <Text>Description</Text>
         <Text>Date</Text>
+        <Text>Delete</Text>
+        <Text>Edit</Text>
       </SimpleGrid>
       {incomes.map((income) => (
         <IncomeCard

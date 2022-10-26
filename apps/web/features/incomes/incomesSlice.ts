@@ -43,4 +43,6 @@ export const { selectAll: selectAllIncomes } =
 export const { addIncome, deleteIncome, updateIncome, setEditIncomeId } =
   incomesSlice.actions;
 
+export const selectEditIncome = (state: AppState) => state.incomes.editIncomeId;
+
 export default incomesSlice.reducer;

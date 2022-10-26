@@ -1,34 +1,12 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Button,
-  ModalProps,
-} from "@chakra-ui/react";
 import React, { FC } from "react";
+import { ModalWithoutChildren } from "../../types/modal";
+import { CustomModal } from "../common/UI/CustomModal";
 import IncomesAddForm from "../IncomesForm/IncomesAddForm";
 
-export const IncomesAddModal: FC<Omit<ModalProps, "children">> = ({
-  onClose,
-  isOpen,
-  ...rest
-}) => {
-  return (
-    <Modal isOpen={isOpen} onClose={onClose} {...rest}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Add Income</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <IncomesAddForm onFormSubmit={onClose} />
-        </ModalBody>
-      </ModalContent>
-    </Modal>
-  );
-};
+export const IncomesAddModal: FC<ModalWithoutChildren> = (props) => (
+  <CustomModal {...props} modalTitle="Add Income">
+    <IncomesAddForm onFormSubmit={props.onClose} />
+  </CustomModal>
+);
 
 export default IncomesAddModal;

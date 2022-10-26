@@ -1,8 +1,9 @@
 import React, { FC } from "react";
 import { ModalWithoutChildren } from "../../types/modal";
-import { TypeOfAction } from "../../utils";
+import { TypeOfAction } from "../../types/action";
 import { CustomModal } from "../common/UI/CustomModal";
-import { IncomesForm } from "./IncomesForm";
+import { IncomesAddForm } from "./IncomesAddForm";
+import { IncomesEditForm } from "./IncomesEditForm";
 
 type IncomesModalProps = {
   modalTitle: string;
@@ -14,7 +15,11 @@ export const IncomesModal: FC<IncomesModalProps> = (props) => {
 
   return (
     <CustomModal {...props} modalTitle={modalTitle}>
-      <IncomesForm type={type} onFormSubmit={onClose} />
+      {type === "add" ? (
+        <IncomesAddForm type={type} onFormSubmit={onClose} />
+      ) : (
+        <IncomesEditForm type={type} onFormSubmit={onClose} />
+      )}
     </CustomModal>
   );
 };
