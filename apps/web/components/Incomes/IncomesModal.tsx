@@ -16,9 +16,9 @@ export const IncomesModal: FC<IncomesModalProps> = (props) => {
   return (
     <CustomModal {...props} modalTitle={modalTitle}>
       {type === "add" ? (
-        <IncomesAddForm type={type} onFormSubmit={onClose} />
+        <IncomesAddForm onFormSubmit={onClose} />
       ) : (
-        <IncomesEditForm type={type} onFormSubmit={onClose} />
+        <IncomesEditForm onFormSubmit={onClose} />
       )}
     </CustomModal>
   );

@@ -1,14 +1,12 @@
 import { Button, Input, Textarea, VStack } from "@chakra-ui/react";
 import React, { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addIncome, updateIncome } from "../../features/incomes/incomesSlice";
+import { addIncome } from "../../features/incomes/incomesSlice";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { CustomFormControl } from "../common";
 import { FieldValues, useForm } from "react-hook-form";
-import { TypeOfAction } from "../../types/action";
 
 type IncomesAddFormProps = {
-  type: TypeOfAction;
   onFormSubmit?: () => void;
 };
 
@@ -17,10 +15,7 @@ type IncomesAddFormFormData = {
   description: string;
 };
 
-export const IncomesAddForm: FC<IncomesAddFormProps> = ({
-  type,
-  onFormSubmit,
-}) => {
+export const IncomesAddForm: FC<IncomesAddFormProps> = ({ onFormSubmit }) => {
   const {
     handleSubmit,
     register,

@@ -9,10 +9,8 @@ import {
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { CustomFormControl } from "../common";
 import { FieldValues, useForm } from "react-hook-form";
-import { TypeOfAction } from "../../types/action";
 
 type IncomesEditFormProps = {
-  type: TypeOfAction;
   onFormSubmit?: () => void;
 };
 
@@ -21,10 +19,7 @@ type IncomesEditFormFormData = {
   description: string;
 };
 
-export const IncomesEditForm: FC<IncomesEditFormProps> = ({
-  type,
-  onFormSubmit,
-}) => {
+export const IncomesEditForm: FC<IncomesEditFormProps> = ({ onFormSubmit }) => {
   const incomes = useSelector(selectAllIncomes);
   const editIncomeId = useSelector(selectEditIncome);
   const income = incomes.find((income) => income.id === editIncomeId);
