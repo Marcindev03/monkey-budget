@@ -24,15 +24,17 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
 
   return (
     <CustomModal modalTitle={modalTitle} {...rest}>
-      {children}
-      <HStack justifyContent={"flex-end"}>
-        <Button colorScheme={"green"} onClick={() => handleChoice(onConfirm)}>
-          Yes
-        </Button>
-        <Button colorScheme={"red"} onClick={() => handleChoice(onReject)}>
-          No
-        </Button>
-      </HStack>
+      <>
+        {children}
+        <HStack justifyContent={"flex-end"}>
+          <Button colorScheme={"green"} onClick={() => handleChoice(onConfirm)}>
+            Yes
+          </Button>
+          <Button colorScheme={"red"} onClick={() => handleChoice(onReject)}>
+            No
+          </Button>
+        </HStack>
+      </>
     </CustomModal>
   );
 };
