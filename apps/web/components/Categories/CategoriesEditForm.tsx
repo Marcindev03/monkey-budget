@@ -1,37 +1,47 @@
 import { Button, Input, VStack } from "@chakra-ui/react";
 import { nanoid } from "@reduxjs/toolkit";
 import React, { FC } from "react";
-import { useDispatch } from "react-redux";
-import { addCategory } from "../../features/categories/categoriesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addCategory,
+  selectEditedCategory,
+  updateCategory,
+} from "../../features/categories/categoriesSlice";
 import { FieldValues, useForm } from "react-hook-form";
 import { CustomFormControl } from "../common";
 
-type CategoriesAddFormProps = {
+type CategoriesEditFormProps = {
   onFormSubmit?: () => void;
 };
 
-type CategoriesAddFormFormData = {
+type CategoriesEditFormFormData = {
   name: string;
 };
 
 // TODO select color input
-export const CategoriesAddForm: FC<CategoriesAddFormProps> = ({
+export const CategoriesEditForm: FC<CategoriesEditFormProps> = ({
   onFormSubmit,
 }) => {
+  const editedCategory = useSelector(selectEditedCategory);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: editedCategory?.name ?? "",
+    },
+  });
 
   const isButtonDisabled = errors.name;
 
   const dispatch = useDispatch();
 
   const handleFormSubmit = (data: FieldValues) => {
-    const { name } = data as CategoriesAddFormFormData;
+    const { name } = data as CategoriesEditFormFormData;
 
-    dispatch(addCategory({ id: nanoid(), name, color: "white" }));
+    dispatch(updateCategory({ name }));
 
     onFormSubmit?.();
   };
@@ -63,4 +73,4 @@ export const CategoriesAddForm: FC<CategoriesAddFormProps> = ({
   );
 };
 
-export default CategoriesAddForm;
+export default CategoriesEditForm;

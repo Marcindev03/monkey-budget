@@ -9,15 +9,10 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import CategoriesList from "../components/Categories/CategoriesList";
-import { CategoriesAddModal } from "../components/Categories";
 import { NextSeo } from "next-seo";
+import CategoriesModal from "../components/Categories/CategoriesModal";
 
 const CategoriesPage: NextPage = () => {
-  const modalControls = {
-    add: useDisclosure({ defaultIsOpen: false }),
-    edit: useDisclosure({ defaultIsOpen: false }),
-  };
-
   return (
     <>
       <NextSeo title="Your Categories" />
@@ -29,16 +24,7 @@ const CategoriesPage: NextPage = () => {
         </NextLink>
       </SimpleGrid>
 
-      <HStack>
-        <Heading size="lg">All Categories</Heading>
-        <Button colorScheme={"purple"} onClick={modalControls.add.onOpen}>
-          Add Category
-        </Button>
-      </HStack>
-
       <CategoriesList />
-
-      <CategoriesAddModal {...modalControls.add} />
     </>
   );
 };
