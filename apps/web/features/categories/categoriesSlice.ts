@@ -43,6 +43,9 @@ export const selectEditedCategory = (state: AppState) =>
     .getSelectors()
     .selectById(state.categories, state.categories.pickedCategoryId);
 
+export const getPickedCategoryId = (state: AppState) =>
+  state.categories.pickedCategoryId;
+
 export const {
   addCategory,
   updateCategory,

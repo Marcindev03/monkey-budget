@@ -1,11 +1,12 @@
 import { FC } from "react";
 import NextLink from "next/link";
-import { CustomCard, CustomCardProps } from "../CustomCard";
-import { Link } from "@chakra-ui/react";
+import { CustomCard } from "../CustomCard";
+import { BoxProps, Link } from "@chakra-ui/react";
 
 type LinkedCardProps = {
   href: string;
-  cardProps?: CustomCardProps;
+  cardProps?: BoxProps;
+  children: React.ReactNode;
 };
 
 export const LinkedCard: FC<LinkedCardProps> = ({

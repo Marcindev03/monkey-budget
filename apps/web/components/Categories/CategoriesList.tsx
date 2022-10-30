@@ -10,14 +10,17 @@ import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCategory,
+  getPickedCategoryId,
   selectAllCategories,
 } from "../../features/categories/categoriesSlice";
 import CategoriesModal from "./CategoriesModal";
 import CategoryCard from "./CategoryCard";
 import { ConfirmationModal, WarningModal } from "ui";
+import { removeRelationWithCategory } from "../../features/expenses/expensesSlice";
 
 const CategoriesList: FC = () => {
   const categories = useSelector(selectAllCategories);
+  const pickedCategoryId = useSelector(getPickedCategoryId);
 
   const dispatch = useDispatch();
 
@@ -26,6 +29,11 @@ const CategoriesList: FC = () => {
     edit: useDisclosure({ defaultIsOpen: false }),
     confirm: useDisclosure({ defaultIsOpen: false }),
     warn: useDisclosure({ defaultIsOpen: false }),
+  };
+
+  const handleCategoryWithExpensesDelete = () => {
+    dispatch(deleteCategory());
+    dispatch(removeRelationWithCategory(pickedCategoryId));
   };
 
   return (
@@ -69,7 +77,7 @@ const CategoriesList: FC = () => {
 
       <WarningModal
         // TODO delete other expenses on confirm
-        onConfirm={() => dispatch(deleteCategory())}
+        onConfirm={handleCategoryWithExpensesDelete}
         onReject={() => {}}
         {...modalControls.warn}
       >

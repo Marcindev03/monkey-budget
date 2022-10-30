@@ -1,4 +1,8 @@
-import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createEntityAdapter,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { AppState } from "../../app/store";
 import { EXPENSES } from "../../mocks/data";
 
@@ -13,12 +17,23 @@ const expenseSlice = createSlice({
   initialState: filledState,
   reducers: {
     addExpense: expensesAdapter.addOne,
+    removeRelationWithCategory(state, action: PayloadAction<string>) {
+      const expenses = expensesAdapter.getSelectors().selectAll(state);
+      const expensesToUpdate = expenses
+        .filter(({ categoryId }) => categoryId === action.payload)
+        .map((expense) => ({
+          id: expense.id,
+          changes: { ...expense, categoryId: "" },
+        }));
+
+      expensesAdapter.updateMany(state, expensesToUpdate);
+    },
   },
 });
 
 export const { selectAll: selectAllExpenses } =
   expensesAdapter.getSelectors<AppState>((state) => state.expenses);
 
-export const { addExpense } = expenseSlice.actions;
+export const { addExpense, removeRelationWithCategory } = expenseSlice.actions;
 
 export default expenseSlice.reducer;
