@@ -26,7 +26,7 @@ export const ExpenseCard: FC<ExpenseCardProps> = ({ expense }) => {
       py="2"
       px="4"
     >
-      <Tag colorScheme={category.color}>{category.name}</Tag>
+      <Tag colorScheme={category?.color ?? "blue"}>{category?.name}</Tag>
       <Text>- {expense.value}</Text>
       <Text>{expense.description}</Text>
       <Text>{format(parseISO(expense.date), "dd.M.yyyy")}</Text>

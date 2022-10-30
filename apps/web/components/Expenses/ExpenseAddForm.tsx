@@ -15,48 +15,54 @@ import { addExpense } from "../../features/expenses/expensesSlice";
 import { Expense } from "../../types/expense";
 import { nanoid } from "@reduxjs/toolkit";
 import { CustomFormControl } from "../common";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 
 type ExpenseAddFormProps = {
   onFormSubmit?: () => void;
 };
 
+type ExpenseAddFormFormData = {
+  categoryId: string;
+  amout: number;
+  description: string;
+};
+
 const ExpenseAddForm: FC<ExpenseAddFormProps> = ({ onFormSubmit }) => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
-
-  const isButtonDisabled = errors.amout;
-
-  const categoryRef = useRef<HTMLSelectElement>();
-  const amoutRef = useRef<HTMLInputElement>();
-  const descriptionRef = useRef<HTMLTextAreaElement>();
-
-  const [date, setDate] = useState(new Date());
-
   const dispatch = useDispatch();
 
   const categories = useSelector(selectAllCategories);
 
-  const handleFormSubmit = () => {
-    const categoryId = categoryRef?.current?.value ?? "";
-    const amout = parseFloat(amoutRef?.current?.value ?? "0");
-    const description = descriptionRef?.current?.value;
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      categoryId: categories?.[0].id,
+      amout: null,
+      description: "",
+    },
+  });
+
+  const [date, setDate] = useState(new Date());
+
+  const handleFormSubmit = (data: FieldValues) => {
+    const { categoryId, amout, description } = data as ExpenseAddFormFormData;
 
     const expense: Expense = {
       id: nanoid(),
       value: amout,
       categoryId: categoryId,
       date: date.toISOString(),
-      description,
+      description: description ?? "",
     };
 
     dispatch(addExpense(expense));
 
     onFormSubmit?.();
   };
+
+  const isButtonDisabled = errors.amout;
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -82,7 +88,7 @@ const ExpenseAddForm: FC<ExpenseAddFormProps> = ({ onFormSubmit }) => {
           />
         </CustomFormControl>
         <CustomFormControl labelTitle="Description">
-          <Textarea />
+          <Textarea {...register("description")} />
         </CustomFormControl>
         <CustomFormControl labelTitle="Date">
           <SingleDatepicker date={date} onDateChange={setDate} />

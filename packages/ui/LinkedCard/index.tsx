@@ -1,1 +1,1 @@
-export * from "./LinedCard";
+export * from "./LinkedCard";
