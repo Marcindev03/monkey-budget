@@ -1,24 +1,28 @@
 import type { NextPage } from "next";
-import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
-import { LinkedCard } from "ui";
+import { Box, Heading } from "@chakra-ui/react";
+import { RegisterForm } from "../components/RegisterForm/RegisterForm";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const IndexPage: NextPage = () => {
-  return (
-    <>
-      <Heading>Monkey Budget</Heading>
+  const router = useRouter();
 
-      <SimpleGrid columns={2} w="xl" gap="6" mt="4">
-        <LinkedCard href="/expenses">
-          <Text>Expenses</Text>
-        </LinkedCard>
-        <LinkedCard href="/incomes">
-          <Text>Incomes</Text>
-        </LinkedCard>
-        <LinkedCard href="/categories">
-          <Text>Categories</Text>
-        </LinkedCard>
-      </SimpleGrid>
-    </>
+  const session = useSession();
+  const supabase = useSupabaseClient();
+
+  useEffect(() => {
+    if (session) {
+      router.push("/user/dashboard");
+    }
+  }, [session]);
+
+  return (
+    <Box minH="100vh" p="5">
+      <Heading fontWeight={"semibold"}>Monkey Budget</Heading>
+
+      <RegisterForm supabase={supabase} />
+    </Box>
   );
 };
 
