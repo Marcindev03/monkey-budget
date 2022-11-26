@@ -1,24 +1,11 @@
 import type { NextPage } from "next";
-import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
-import { LinkedCard } from "ui";
+import { Box, Heading } from "@chakra-ui/react";
 
 const IndexPage: NextPage = () => {
   return (
-    <>
+    <Box minH="100vh" p="5">
       <Heading>Monkey Budget</Heading>
-
-      <SimpleGrid columns={2} w="xl" gap="6" mt="4">
-        <LinkedCard href="/expenses">
-          <Text>Expenses</Text>
-        </LinkedCard>
-        <LinkedCard href="/incomes">
-          <Text>Incomes</Text>
-        </LinkedCard>
-        <LinkedCard href="/categories">
-          <Text>Categories</Text>
-        </LinkedCard>
-      </SimpleGrid>
-    </>
+    </Box>
   );
 };
 

@@ -3,10 +3,13 @@ import type { AppProps } from "next/app";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 
-import { Box, ChakraProvider } from "@chakra-ui/react";
-import { DefaultSeo } from "next-seo";
-import { wrapper } from "../app/store";
 import { useState } from "react";
+import { DefaultSeo } from "next-seo";
+import { Box, ChakraProvider } from "@chakra-ui/react";
+
+import { wrapper } from "../app/store";
+
+import { theme } from "../styles/theme";
 
 type MyAppProps = {
   initialSession: Session;
@@ -20,14 +23,12 @@ function MyApp({ Component, pageProps }: AppProps<MyAppProps>) {
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}
     >
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <DefaultSeo
           defaultTitle="Monkey Budget - Manage Your Finance"
           titleTemplate="Monkey Budget | %s"
         />
-        <Box p="4">
-          <Component {...pageProps} />
-        </Box>
+        <Component {...pageProps} />
       </ChakraProvider>
     </SessionContextProvider>
   );
