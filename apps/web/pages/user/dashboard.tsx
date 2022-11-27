@@ -3,13 +3,19 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 import { useSession } from "@supabase/auth-helpers-react";
 import { DashboardCard } from "ui";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import {
+  Database,
+  getUsersExpensesValues,
+  UsersExpensesValuesData,
+} from "core";
 
 type DashboardPageProps = {
-  // TODO fetch types from database
-  expenses: any;
+  usersExpensesValues: UsersExpensesValuesData;
 };
 
-const DashboardPage: NextPage<DashboardPageProps> = ({ expenses }) => {
+const DashboardPage: NextPage<DashboardPageProps> = ({
+  usersExpensesValues,
+}) => {
   const session = useSession();
 
   return (
@@ -31,19 +37,19 @@ const DashboardPage: NextPage<DashboardPageProps> = ({ expenses }) => {
 export default DashboardPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const supabase = createServerSupabaseClient(context);
+  const supabase = createServerSupabaseClient<Database>(context);
 
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  const { data: expenses } = await supabase.from("expenses").select("value");
+  const { usersExpensesValues } = await getUsersExpensesValues(supabase);
 
   return {
     props: {
       initialSession: session,
       user: session?.user,
-      expenses,
+      usersExpensesValues,
     },
   };
 };
