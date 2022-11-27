@@ -43,6 +43,7 @@
     "eslint": "7.32.0",
     "eslint-config-custom": "*",
     "next-transpile-modules": "9.0.0",
+    "supabase": "^1.15.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
     "tsconfig": "*",
