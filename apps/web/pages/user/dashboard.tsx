@@ -5,6 +5,7 @@ import { DashboardCard } from "ui";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import {
   Database,
+  getServerSession,
   getUsersExpensesValues,
   UsersExpensesValuesData,
 } from "core";
@@ -39,10 +40,7 @@ export default DashboardPage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const supabase = createServerSupabaseClient<Database>(context);
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
+  const { session } = await getServerSession(supabase);
   const { usersExpensesValues } = await getUsersExpensesValues(supabase);
 
   return {
