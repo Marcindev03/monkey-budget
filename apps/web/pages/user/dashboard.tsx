@@ -1,19 +1,62 @@
-import type { NextPage } from "next";
-import { Box, Button, Heading } from "@chakra-ui/react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import type { GetServerSideProps, NextPage } from "next";
+import { Box, Heading, Text } from "@chakra-ui/react";
+import { useSession } from "@supabase/auth-helpers-react";
+import { DashboardCard } from "ui";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import {
+  Database,
+  getServerSession,
+  getUsersExpensesValues,
+  getUsersIncomesValues,
+} from "core";
 
-const DashboardPage: NextPage = () => {
-  const supabase = useSupabaseClient();
+type DashboardPageProps = {
+  monthExpense: number;
+  monthIncome: number;
+};
+
+const DashboardPage: NextPage<DashboardPageProps> = ({
+  monthExpense,
+  monthIncome,
+}) => {
+  const session = useSession();
 
   return (
     <Box minH="100vh" p="5">
-      <Heading>User Dashboard</Heading>
+      <Heading>Dashboard</Heading>
 
-      <Button onClick={() => supabase.auth.signOut()} colorScheme="red">
-        Log out
-      </Button>
+      <Text>Welcome, {session?.user?.email}</Text>
+
+      <DashboardCard
+        month={"November"}
+        monthIncome={monthIncome}
+        monthExpense={monthExpense}
+        totalBalance={monthIncome - monthExpense}
+      />
     </Box>
   );
 };
 
 export default DashboardPage;
+
+export const getServerSideProps: GetServerSideProps<
+  DashboardPageProps
+> = async (context) => {
+  const supabase = createServerSupabaseClient<Database>(context);
+
+  const [{ session }, { usersExpensesValues }, { usersIncomesValues }] =
+    await Promise.all([
+      getServerSession(supabase),
+      getUsersExpensesValues(supabase),
+      getUsersIncomesValues(supabase),
+    ]);
+
+  return {
+    props: {
+      initialSession: session,
+      user: session?.user,
+      monthExpense: usersExpensesValues.reduce((a, b) => a + b.value, 0),
+      monthIncome: usersIncomesValues.reduce((a, b) => a + b.value, 0),
+    },
+  };
+};

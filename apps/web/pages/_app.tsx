@@ -20,13 +20,16 @@ import "@fontsource/raleway/800.css";
 import "@fontsource/raleway/900.css";
 
 import { theme } from "../styles/theme";
+import { Database } from "core";
 
 type MyAppProps = {
   initialSession: Session;
 };
 
 function MyApp({ Component, pageProps }: AppProps<MyAppProps>) {
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const [supabaseClient] = useState(() =>
+    createBrowserSupabaseClient<Database>()
+  );
 
   return (
     <SessionContextProvider

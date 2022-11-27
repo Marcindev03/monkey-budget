@@ -32,7 +32,8 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.38.0",
     "react-redux": "^7.2.0",
-    "ui": "*"
+    "ui": "*",
+    "core": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -43,6 +44,7 @@
     "eslint": "7.32.0",
     "eslint-config-custom": "*",
     "next-transpile-modules": "9.0.0",
+    "supabase": "^1.15.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
     "tsconfig": "*",
