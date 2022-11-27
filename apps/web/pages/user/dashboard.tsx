@@ -44,9 +44,12 @@ export const getServerSideProps: GetServerSideProps<
 > = async (context) => {
   const supabase = createServerSupabaseClient<Database>(context);
 
-  const { session } = await getServerSession(supabase);
-  const { usersExpensesValues } = await getUsersExpensesValues(supabase);
-  const { usersIncomesValues } = await getUsersIncomesValues(supabase);
+  const [{ session }, { usersExpensesValues }, { usersIncomesValues }] =
+    await Promise.all([
+      getServerSession(supabase),
+      getUsersExpensesValues(supabase),
+      getUsersIncomesValues(supabase),
+    ]);
 
   return {
     props: {

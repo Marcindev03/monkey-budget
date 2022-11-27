@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, FlexProps, Heading, Text } from "@chakra-ui/react";
 import { FC } from "react";
 import { Card } from "../Card";
 
@@ -15,6 +15,11 @@ export const DashboardCard: FC<DashboardCardProps> = ({
   monthIncome,
   totalBalance,
 }) => {
+  const dashboardRowStyle: FlexProps = {
+    justifyContent: "space-between",
+    w: "full",
+  };
+
   return (
     <Card mt="6">
       <Heading fontSize="xl" fontWeight={"semibold"}>
@@ -29,15 +34,15 @@ export const DashboardCard: FC<DashboardCardProps> = ({
           bgColor="red.400"
         ></Box>
         <Box w="50%">
-          <Flex justifyContent={"space-between"} w="full">
+          <Flex {...dashboardRowStyle}>
             <Text>Income:</Text>
             <Text color="green.500">{monthIncome}</Text>
           </Flex>
-          <Flex justifyContent={"space-between"} w="full">
+          <Flex {...dashboardRowStyle}>
             <Text>Expense:</Text>
             <Text color="red.500">{monthExpense}</Text>
           </Flex>
-          <Flex justifyContent={"space-between"} w="full" mt="5">
+          <Flex {...dashboardRowStyle} mt="5">
             <Text fontSize={"xl"}>Balance:</Text>
             <Text fontSize={"xl"}>{totalBalance}</Text>
           </Flex>
