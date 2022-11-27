@@ -35,6 +35,32 @@ export interface Database {
           user_id?: string | null
         }
       }
+      incomes: {
+        Row: {
+          id: number
+          created_at: string | null
+          name: string
+          description: string | null
+          value: number
+          user_id: string
+        }
+        Insert: {
+          id?: number
+          created_at?: string | null
+          name?: string
+          description?: string | null
+          value: number
+          user_id: string
+        }
+        Update: {
+          id?: number
+          created_at?: string | null
+          name?: string
+          description?: string | null
+          value?: number
+          user_id?: string
+        }
+      }
       profiles: {
         Row: {
           id: string

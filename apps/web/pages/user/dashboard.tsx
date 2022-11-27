@@ -3,13 +3,22 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 import { useSession } from "@supabase/auth-helpers-react";
 import { DashboardCard } from "ui";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Database, getServerSession, getUsersExpensesValues } from "core";
+import {
+  Database,
+  getServerSession,
+  getUsersExpensesValues,
+  getUsersIncomesValues,
+} from "core";
 
 type DashboardPageProps = {
   monthExpense: number;
+  monthIncome: number;
 };
 
-const DashboardPage: NextPage<DashboardPageProps> = ({ monthExpense }) => {
+const DashboardPage: NextPage<DashboardPageProps> = ({
+  monthExpense,
+  monthIncome,
+}) => {
   const session = useSession();
 
   return (
@@ -20,9 +29,9 @@ const DashboardPage: NextPage<DashboardPageProps> = ({ monthExpense }) => {
 
       <DashboardCard
         month={"November"}
-        monthIncome={3500}
+        monthIncome={monthIncome}
         monthExpense={monthExpense}
-        totalBalance={1500}
+        totalBalance={monthIncome - monthExpense}
       />
     </Box>
   );
@@ -37,12 +46,14 @@ export const getServerSideProps: GetServerSideProps<
 
   const { session } = await getServerSession(supabase);
   const { usersExpensesValues } = await getUsersExpensesValues(supabase);
+  const { usersIncomesValues } = await getUsersIncomesValues(supabase);
 
   return {
     props: {
       initialSession: session,
       user: session?.user,
       monthExpense: usersExpensesValues.reduce((a, b) => a + b.value, 0),
+      monthIncome: usersIncomesValues.reduce((a, b) => a + b.value, 0),
     },
   };
 };

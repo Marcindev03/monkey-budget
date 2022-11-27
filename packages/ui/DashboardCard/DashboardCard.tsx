@@ -18,7 +18,7 @@ export const DashboardCard: FC<DashboardCardProps> = ({
   return (
     <Card mt="6">
       <Heading fontSize="xl" fontWeight={"semibold"}>
-        {month} balance
+        {month} status
       </Heading>
 
       <Flex pt="4" justifyContent={"space-between"}>
@@ -38,7 +38,7 @@ export const DashboardCard: FC<DashboardCardProps> = ({
             <Text color="red.500">{monthExpense}</Text>
           </Flex>
           <Flex justifyContent={"space-between"} w="full" mt="5">
-            <Text fontSize={"xl"}>Total:</Text>
+            <Text fontSize={"xl"}>Balance:</Text>
             <Text fontSize={"xl"}>{totalBalance}</Text>
           </Flex>
         </Box>
