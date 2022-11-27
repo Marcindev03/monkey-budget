@@ -4,7 +4,7 @@ import { CustomModal } from "../common/UI/CustomModal";
 import IncomesAddForm from "../IncomesForm/IncomesAddForm";
 
 export const IncomesAddModal: FC<ModalWithoutChildren> = (props) => (
-  <CustomModal {...props} modalTitle="Add Income">
+  <CustomModal {...props} modalTitle="Add Income" size="full">
     <IncomesAddForm onFormSubmit={props.onClose} />
   </CustomModal>
 );

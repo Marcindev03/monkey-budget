@@ -20,7 +20,7 @@ export const CustomModal: FC<CustomModalProps> = (props) => {
   return (
     <Modal {...props}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent color="black">
         <ModalHeader>{modalTitle}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>

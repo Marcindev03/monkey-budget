@@ -27,12 +27,16 @@ export const DashboardCard: FC<DashboardCardProps> = ({
       </Heading>
 
       <Flex pt="4" justifyContent={"space-between"}>
-        <Box
-          width={"40%"}
-          rounded="full"
-          height={"100px"}
-          bgColor="red.400"
-        ></Box>
+        <Box width={"40%"} rounded="full" height={"100px"} bgColor="red.400">
+          <Text
+            textAlign={"center"}
+            fontWeight="bold"
+            mt="10"
+            color="blackAlpha.900"
+          >
+            Chart
+          </Text>
+        </Box>
         <Box w="50%">
           <Flex {...dashboardRowStyle}>
             <Text>Income:</Text>

@@ -70,7 +70,9 @@ const ExpenseAddForm: FC<ExpenseAddFormProps> = ({ onFormSubmit }) => {
         <CustomFormControl labelTitle="Category">
           <Select {...register("categoryId")}>
             {categories.map((category) => (
-              <option value={category.id}>{category.name}</option>
+              <option key={category.name} value={category.id}>
+                {category.name}
+              </option>
             ))}
           </Select>
         </CustomFormControl>
